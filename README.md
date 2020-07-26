@@ -15,7 +15,7 @@ The gaze estimation model requires following inputs:
 * The Left Eye Image
 * The Right Eye Image.
 
-![demoVideo](/bin/output_video.gif)
+![demo](/bin/output_video.gif)
 
 You will have to coordinate the flow of data from the input, and then amongst the different models and finally to the mouse controller.
 
@@ -138,14 +138,22 @@ I have checked Inference Time, Model Loading Time, and Frames Per Second model f
 ---
 
 ### Inference Time
+![](/images/inference_time.png)
+![](/images/inference_time_a.png)
 
 ---
 
 ### Loading Time
 
+![](/images/model_loading_time.png)
+![](/images/model_loading_time_a.png)
+
 ---
 
 ### FPS
+
+![](/images/fps.png)
+![](/images/fps_a.png)
 
 ---
 
