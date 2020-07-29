@@ -15,7 +15,6 @@ The gaze estimation model requires following inputs:
 * The Left Eye Image
 * The Right Eye Image.
 
-![demo](/bin/output_video.gif)
 
 You will have to coordinate the flow of data from the input, and then amongst the different models and finally to the mouse controller.
 
@@ -180,6 +179,18 @@ C:.
         mouse_controller.py
 ```
 
+The `root` folder contains README file, Batch `script.bat` and `requirements.txt` files
+
+
+The `files` folder contains the demo file and benchmark images.
+
+
+The `models` folder contains the four downloaded models
+
+
+The `openvino-env` folder is your virtual environment
+
+
 The `src` folder has 4 model class files which are modularised and other required files
 * `face_detection_model.py`
 * `gaze_estimation_model.py`
@@ -190,17 +201,16 @@ The `src` folder has 4 model class files which are modularised and other require
 * `mouse_controller.py` contains code to move mouse curser pointer based on mouse coordinates.
 * `input_feeder.py` contains code to load local video/webcam feed
 
-The `bin` folder contains the demo file and benchmark images.
 
 ## Benchmarks
 
 I have checked Inference Time, Model Loading Time, and Frames Per Second on different machines.
 I have run the model in 5 diffrent hardware named:
-IEI Mustang F100-A10 FPGA
-Intel Xeon E3-1268L v5 CPU
-Intel Atom x7-E3950 UP2 GPU
-Intel Core i5-6500TE CPU
-Intel Core i5-6500TE GPU
+- IEI Mustang F100-A10 FPGA
+- Intel Xeon E3-1268L v5 CPU
+- Intel Atom x7-E3950 UP2 GPU
+- Intel Core i5-6500TE CPU
+- Intel Core i5-6500TE GPU
 
 ---
 
@@ -235,12 +245,16 @@ Intel Core i5-6500TE GPU
 ---
 
 ## Results:
-* Loading time: `FP16` has lowest and `FP32-INT8` has highest.
-* Inference time: `FP32` give slightly better results.
-* FPS: FP32 gave slightle better results
-* Asynchronous Inference has little better results in `inference time` and `FPS` over Synchronous Inference
+- The IEI Mustang F100-A10 FPGA took more time for inference than other because FPGAs are designed for speciific tasks.
+- The Intel Atom x7-E3950 UP2 GPU had highest loading time in every precision. Others had lowest.
+- The GPUs and CPU were quite tied in FPS department.
+- GPU had more FPS compared to any other hardware.
+- Though little costly than CPU, considering above results, it's a good choice to go with.
+- The difference between the models having different precisions is quite clear.
+- `INT8` is low in size and it has low accuracy compared to others. Usefull for low memory low accuracy IoT devices.
+- `FP16` is a good middle ground between size and accuracy tradeoff. Useful for most use cases.
+- `FP32` has high accuracy and it is bigger in size. Useful for high memory high accuracy devices.
 
-##
 
 ### Edge Cases
 * Many People Scenario: If multiple peoples are present in the video, it will  give results on one face.
