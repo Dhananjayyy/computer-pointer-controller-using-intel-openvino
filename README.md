@@ -81,37 +81,86 @@ Command Line Argument Information:
 ### Project Structure:
 
 
-```
-│   output_video.mp4
 │   README.md
 │   requirements.txt
+│   script.bat
 │
-├───bin
+├───files
 │       demo.mp4
+│       fp16fps.png
+│       fp16inf.png
+│       fp16load.png
+│       fp32fps.png
+│       fp32inf.png
+│       fp32load.png
+│       int8fps.png
+│       int8inf.png
+│       int8load.png
 │
-├───images
-│       pipeline.png
+├───models
+│   └───intel
+│       ├───face-detection-adas-binary-0001
+│       │   └───FP32-INT1
+│       │           face-detection-adas-binary-0001.bin
+│       │           face-detection-adas-binary-0001.xml
+│       │
+│       ├───gaze-estimation-adas-0002
+│       │   ├───FP16
+│       │   │       gaze-estimation-adas-0002.bin
+│       │   │       gaze-estimation-adas-0002.xml
+│       │   │
+│       │   ├───FP32
+│       │   │       gaze-estimation-adas-0002.bin
+│       │   │       gaze-estimation-adas-0002.xml
+│       │   │
+│       │   └───FP32-INT8
+│       │           gaze-estimation-adas-0002.bin
+│       │           gaze-estimation-adas-0002.xml
+│       │
+│       ├───head-pose-estimation-adas-0001
+│       │   ├───FP16
+│       │   │       head-pose-estimation-adas-0001.bin
+│       │   │       head-pose-estimation-adas-0001.xml
+│       │   │
+│       │   ├───FP32
+│       │   │       head-pose-estimation-adas-0001.bin
+│       │   │       head-pose-estimation-adas-0001.xml
+│       │   │
+│       │   └───FP32-INT8
+│       │           head-pose-estimation-adas-0001.bin
+│       │           head-pose-estimation-adas-0001.xml
+│       │
+│       └───landmarks-regression-retail-0009
+│           ├───FP16
+│           │       landmarks-regression-retail-0009.bin
+│           │       landmarks-regression-retail-0009.xml
+│           │
+│           ├───FP32
+│           │       landmarks-regression-retail-0009.bin
+│           │       landmarks-regression-retail-0009.xml
+│           │
+│           └───FP32-INT8
+│                   landmarks-regression-retail-0009.bin
+│                   landmarks-regression-retail-0009.xml
 │
-├───model
-│   ├───face-detection-adas-binary-0001
-│   │
-│   ├───gaze-estimation-adas-0002
-│   │
-│   ├───head-pose-estimation-adas-0001
-│   │
-│   └───landmarks-regression-retail-0009
-│       
-│
+├───openvino_env
 └───src
-        face_detection_model.py
-        gaze_estimation_model.py
-        head_pose_estimation_model.py
-        input_feeder.py
-        landmark_detection_model.py
-        main.py
-        model.py
-        mouse_controller.py
-        output_video.mp4
+    │   face_detection.py
+    │   facial_landmark_detection.py
+    │   gaze_estimation.py
+    │   head_pose_estimation.py
+    │   input_feeder.py
+    │   main.py
+    │   mouse_controller.py
+    │
+    └───__pycache__
+            face_detection.cpython-36.pyc
+            facial_landmarks_detection.cpython-36.pyc
+            facial_landmark_detection.cpython-36.pyc
+            gaze_estimation.cpython-36.pyc
+            head_pose_estimation.cpython-36.pyc
+            input_feeder.cpython-36.pyc
+            mouse_controller.cpython-36.pyc
 ```
 
 - models: This folder contains models in IR format downloaded from Openvino Model Zoo.
