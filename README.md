@@ -18,7 +18,7 @@ The gaze estimation model requires following inputs:
 
 You will have to coordinate the flow of data from the input, and then amongst the different models and finally to the mouse controller.
 
-![Pipeline](/images/pipeline.png)
+![](/files/pipeline.png)
 
 ## Project Set Up and Installation:
 - Download the **[OpenVino Toolkit](https://docs.openvinotoolkit.org/latest/index.html)** for your system with all the prerequisites.
@@ -41,11 +41,16 @@ It will download required models with all the precisions.
 `python3 /opt/intel/openvino/deployment_tools/open_model_zoo/tools/downloader/downloader.py --name landmarks-regression-retail-0009`
 
 
+![](/files/Screenshot.png)
+
 ## How to run (Demo):
+
+![Pipeline](/images/pipeline.png)
+
 ### Method 1: (For Windows users only)
 
 - Double click on the `script.bat` file or open cmd in the project root folder and run `script.bat`
-- `Prompt: Initializing OpenVINO environment
+- `Prompt: Initializing OpenVINO environment`
 - If your system have successfully installed OpenVINO environment and the requirement, it will be initialised.
 
 - `Prompt: This project requires virtual environment, proceed to create? (Y/[N])`
@@ -60,7 +65,7 @@ It will download required models with all the precisions.
 - This project requires four models from ithe model downloader: `Gaze Detection Model, Face Detection Model, Head Pose Estimation Model, Facial Landmarks Detection Model`
 - Press 'y' to proceed and 'n' to skip.
 
-- `Prompt: Here's your script to run the project:
+- `Prompt: Here's your script to run the project:`
 - You will be displayed a generated script to run this project.
 
 - `Proceed to execute the generated script? (Y/[N])`
@@ -245,8 +250,8 @@ I have run the model in 5 diffrent hardware named:
 ---
 
 ## Results:
-- The IEI Mustang F100-A10 FPGA took more time for inference than other because FPGAs are designed for speciific tasks.
-- The Intel Atom x7-E3950 UP2 GPU had highest loading time in every precision. Others had lowest.
+- The `IEI Mustang F100-A10` FPGA took more time for inference than other because FPGAs are designed for speciific tasks.
+- The `Intel Atom x7-E3950 UP2` GPU had highest loading time in every precision. Others had lowest.
 - The GPUs and CPU were quite tied in FPS department.
 - GPU had more FPS compared to any other hardware.
 - Though little costly than CPU, considering above results, it's a good choice to go with.
