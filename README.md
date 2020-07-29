@@ -22,7 +22,6 @@ You will have to coordinate the flow of data from the input, and then amongst th
 ![Pipeline](/images/pipeline.png)
 
 ## Project Set Up and Installation:
-
 - Download the **[OpenVino Toolkit](https://docs.openvinotoolkit.org/latest/index.html)** for your system with all the prerequisites.
 
 - Clone the Repository using `git clone https://github.com/Dhananjayyy/computer-pointer-controller-using-intel-openvino.git`
@@ -43,9 +42,36 @@ It will download required models with all the precisions.
 `python3 /opt/intel/openvino/deployment_tools/open_model_zoo/tools/downloader/downloader.py --name landmarks-regression-retail-0009`
 
 
-## Demo:
+## How to run (Demo):
+### Method 1: (For Windows users only)
 
+- Double click on the `script.bat` file or open cmd in the project root folder and run `script.bat`
+- `Prompt: Initializing OpenVINO environment
+- If your system have successfully installed OpenVINO environment and the requirement, it will be initialised.
+
+- `Prompt: This project requires virtual environment, proceed to create? (Y/[N])`
+- Pressing 'y' will create the virtual environment in your current directory. Press 'n' if it already exists.
+
+- `Prompt: Download required dependancies in your virtual environment? (Y/[N])`
+- This project requires certain packages to be installed in the virtual env to effectively run it.
+- It is stored in `requirements.txt` file.
+- Pressing 'y' will download them. PRessing 'n' will skip this step.
+
+- `Prompt: Proceed to download the required models? (Y/[N])`
+- This project requires four models from ithe model downloader: `Gaze Detection Model, Face Detection Model, Head Pose Estimation Model, Facial Landmarks Detection Model`
+- Press 'y' to proceed and 'n' to skip.
+
+- `Prompt: Here's your script to run the project:
+- You will be displayed a generated script to run this project.
+
+- `Proceed to execute the generated script? (Y/[N])`
+- Press 'y' to execute the above script and run the project.
+- If above steps are complted successfully, the project will start
+
+
+### Method 2: (For Windows users only)
 Step1. Open command prompt. Go to Virtual Environment location. Execute below commands.
+
 ```
 cd venv/Scripts/
 activate
@@ -64,23 +90,23 @@ cd path_to_project_directory
 
 Step4. Run below commands to execute the project (demo.mp4)
 ```
-python src/main.py -fd model/face-detection-adas-binary-0001/FP32-INT1/face-detection-adas-binary-0001.xml -lr model/landmarks-regression-retail-0009/FP32-INT8/landmarks-regression-retail-0009.xml -hp model/head-pose-estimation-adas-0001/FP32-INT8/head-pose-estimation-adas-0001.xml -ge model/gaze-estimation-adas-0002/FP32-INT8/gaze-estimation-adas-0002.xml -i bin/demo.mp4 -flags ff fl fh fg
+python {path to main.py file} -fdm {path to the xml file of face detection model} -ldm {path to the xml file of landmark detection model} -hpm {path to the xml file of head pose estimation model} -gem {path to the xml file of gaze estimation model} -ip {path to the video file demo.mp4} -flags fdm ldm hpm gem
 ```
 ## Documentation: 
 Command Line Argument Information:
-- fd : Path of xml file of face detection model
-- lr : Path of xml file of landmark regression model
-- hp : Path of xml file of Head Pose Estimation model
-- ge : Path of xml file of Gaze Estimation model
-- i : Path of input Video file or cam for Webcam
-- flags (Optional): To preview video in separate window you need to Specify flag from ff, fl, fh, fg
-- probs (Optional): To specify confidence threshold for face detection. default=0.7 (Range=0-1)  
+- fdm : Path of xml file of face detection model
+- ldm : Path of xml file of landmark regression model
+- hpm : Path of xml file of Head Pose Estimation model
+- gem : Path of xml file of Gaze Estimation model
+- ip : Path of input Video file or cam for Webcam
+- flags (Optional): To preview video in separate window you need to Specify flag from fdm, ldm, hpm, gem
+- prob (Optional): To specify confidence threshold for face detection.  
 - d (Optional): Specify Device for inference, the device can be CPU, GPU, VPU, FPGA, MYRIAD
-- o : Specify path of output folder where we will store results
  
 ### Project Structure:
 
-
+```
+C:.
 │   README.md
 │   requirements.txt
 │   script.bat
@@ -145,84 +171,68 @@ Command Line Argument Information:
 │
 ├───openvino_env
 └───src
-    │   face_detection.py
-    │   facial_landmark_detection.py
-    │   gaze_estimation.py
-    │   head_pose_estimation.py
-    │   input_feeder.py
-    │   main.py
-    │   mouse_controller.py
-    │
-    └───__pycache__
-            face_detection.cpython-36.pyc
-            facial_landmarks_detection.cpython-36.pyc
-            facial_landmark_detection.cpython-36.pyc
-            gaze_estimation.cpython-36.pyc
-            head_pose_estimation.cpython-36.pyc
-            input_feeder.cpython-36.pyc
-            mouse_controller.cpython-36.pyc
+        face_detection.py
+        facial_landmark_detection.py
+        gaze_estimation.py
+        head_pose_estimation.py
+        input_feeder.py
+        main.py
+        mouse_controller.py
 ```
 
-- models: This folder contains models in IR format downloaded from Openvino Model Zoo.
-
-- src: This folder contains model files, pipeline file(main.py) and other files.
-
-* `model.py` is the model class file which has common property of all the other model files. It is inherited by all the other model files 
-This folder has 4 model class files which are modularised.
+The `src` folder has 4 model class files which are modularised and other required files
 * `face_detection_model.py`
 * `gaze_estimation_model.py`
 * `landmark_detection_model.py`
 * `head_pose_estimation_model.py`
 
-
 * `main.py` Run complete pipeline of the total project.
 * `mouse_controller.py` contains code to move mouse curser pointer based on mouse coordinates.
 * `input_feeder.py` contains code to load local video/webcam feed
 
-- bin: contains the demo file.
+The `bin` folder contains the demo file and benchmark images.
 
 ## Benchmarks
-I have checked Inference Time, Model Loading Time, and Frames Per Second model for FP16, FP32, and FP32-INT8 of all the models except Face Detection Model. Face Detection Model was only available on FP32-INT1 precision. You can use below commands to get results for respective precisions
+
+I have checked Inference Time, Model Loading Time, and Frames Per Second on different machines.
+I have run the model in 5 diffrent hardware named:
+IEI Mustang F100-A10 FPGA
+Intel Xeon E3-1268L v5 CPU
+Intel Atom x7-E3950 UP2 GPU
+Intel Core i5-6500TE CPU
+Intel Core i5-6500TE GPU
 
 ---
 
-### Inference Time
-![](/images/inference_time.png)
-![](/images/inference_time_a.png)
+### INT8
+#### Inference Time
+![](/files/int8inf.png)
+#### Loading Time
+![](/files/int8load.png)
+#### FPS
+![](/files/int8fps.png)
 
 ---
 
-### Loading Time
-
-![](/images/model_loading_time.png)
-![](/images/model_loading_time_a.png)
-
----
-
-### FPS
-
-![](/images/fps.png)
-![](/images/fps_a.png)
+### FP16
+#### Inference Time
+![](/files/fp16inf.png)
+#### Loading Time
+![](/files/fp16load.png)
+#### FPS
+![](/files/fp16fps.png)
 
 ---
 
-**Synchronous Inference**
+### FP32
+#### Inference Time
+![](/files/fp32inf.png)
+#### Loading Time
+![](/files/fp32load.png)
+#### FPS
+![](/files/fp16fps.png)
 
-```
-Precision = ['FP16', 'FP32', 'FP32-INT8']
-Inference Time : [26.7, 26.3, 26.8]
-Loading Time : [1.6324511543623587, 1.6325845657216365, 5.63265478215458]
-FPS : [2.124521271181955, 2.2142154412457845, 2.18421648855421]
-```
-
-**Asynchronous Inference**
-
-```
-Precision = ['FP16', 'FP32', 'FP32-INT8']
-Inference Time : [23.9, 24.7, 24.0]
-Loading Time : [0.75486324251236, 0.695432365158475, 2.78423651987452]
-FPS : [2.12548432154545, 2.53214523654542, 2.212545512236584]
-```
+---
 
 ## Results:
 * Loading time: `FP16` has lowest and `FP32-INT8` has highest.
