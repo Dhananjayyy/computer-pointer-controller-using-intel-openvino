@@ -73,7 +73,7 @@ It will download required models with all the precisions.
 - If above steps are complted successfully, the project will start
 
 
-### Method 2: (For Windows users only)
+### Method 2: (For Linux users only)
 Step1. Open command prompt. Go to Virtual Environment location. Execute below commands.
 
 ```
